@@ -116,7 +116,7 @@ TEMPLATE_DIRS = (
     # "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    "C:/Users/Ann/Code/Projects/gitcode/DjangoTut/mysite/mysite/templates",
+    "C:/Users/Ann/Code/GitHub/DjangoTut/mysite/mysite/templates",
 )
 
 INSTALLED_APPS = (
