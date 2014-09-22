@@ -1,5 +1,5 @@
--- Django Tutorial Workspace only
+## Django Tutorial Workspace only
 
 Personal workspace
 
-See https://docs.djangoproject.com/en/1.6/intro/tutorial01/ for the original source
+See [Django Tutorials](https://docs.djangoproject.com/en/1.6/intro/tutorial01/)
