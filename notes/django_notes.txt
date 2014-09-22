@@ -1,0 +1,42 @@
+Getting django:
+C:\python27 (ensure PYTHON_HOME and %PYTHON_HOME%/Scripts; are in %PATH%) 
+setuptools
+easy_install pip
+pip install django==1.5
+
+test installation:
+python -c "import django; print(django.get_version())"
+
+Code project directory:
+git clone from github or
+   git create repository (use tortoise)
+   django-admin.py startproject mysite
+
+Check the server:
+python manage.py runserver (8000 or other port eg 8080)
+
+Locate/create a database:
+Edit settings.py DATABASES ENGINE and NAME
+(sqlite is auto created, others CREATE DATABASE dbname.db)
+
+Create tables for INSTALLED_APPS:
+python manage.py syncdb
+
+Check schema in sqlite3:
+sqlite3 mysite.db
+sqlite>.schema
+
+Create an app alongside the project:
+python manage.py startapp myapp
+
+edit the models.py file
+add 'myapp', to Settings INSTALLED_APPS
+python manage.py validate (checks for model errors)
+python manage.py sql myapp (previews table creation for the model)
+(also sqlall or sqlcustom, sqlclear, sqlindexes)
+python manage.py syncdb (to create the models in db)
+
+Accessing the data:
+python manage.py shell
+
+

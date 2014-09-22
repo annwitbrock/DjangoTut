@@ -1,0 +1,76 @@
+To get admin:
+Settings INSTALLED_APPS Uncomment "django.contrib.admin"
+python manage.py syncdb
+
+Enable admin in mysite/urls.py 
+   url(r'^admin/', include(admin.site.urls)),
+
+Restart server:
+   python manage.py runserver
+localhost:8000/admin
+(superuser to log in) (I used ann ann)
+
+Create admin.py in MyApp directory
+e.g.
+	from django.contrib import admin
+	from polls.models import Poll
+
+	admin.site.register(Poll)
+
+Create classes to control admin behaviour:
+	class PollAdmin(admin.ModelAdmin):
+		fields = ['pub_date', 'question'] # define order
+
+	admin.site.register(Poll, PollAdmin)
+
+Better, with related models and bells and whistles:
+
+	from django.contrib import admin
+	from polls.models import Choice, Poll
+
+	class ChoiceInline(admin.TabularInline):
+		model = Choice
+		extra = 3
+
+	class PollAdmin(admin.ModelAdmin):
+		fieldsets = [
+			(None,               {'fields': ['question']}),
+			('Date information', {'fields': ['pub_date'],
+								  'classes': ['collapse']}),
+		]
+		inlines = [ChoiceInline]
+		list_display = ('question', 'pub_date', 'was_published_recently')
+		list_filter = ['pub_date']
+		search_fields = ['question']
+		date_hierarchy = 'pub_date'
+
+	admin.site.register(Poll, PollAdmin)
+
+Edit the Model method with some attributes:
+(after the method, not before)
+
+class Poll(models.Model):
+    # ...
+    def was_published_recently(self):
+        return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
+    was_published_recently.admin_order_field = 'pub_date'
+    was_published_recently.boolean = True
+    was_published_recently.short_description = 'Published recently?'   
+   
+
+   
+Customising appearance  
+django default templates are in:
+django/contrib/admin/templates/admin/
+e.g. base_site.html
+
+django source is in:
+C:\Python27\Lib\site-packages\django
+
+find it with:
+python -c "
+import sys
+sys.path = sys.path[1:]
+import django
+print(django.__path__)"
+(or just type those commands in the python command window)
